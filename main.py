@@ -104,7 +104,7 @@ def weather():
 def daily():
   global solvedFlag
   GPIO.output(ledPin, GPIO.HIGH)
-  # subprocess.call(["python", "forecast.py"])
+  subprocess.call(["python", "headlines.py"])
 
   subprocess.call(["python", "sudoku-gfx.py"])
   solvedFlag = False  #a new puzzle is unsolved
