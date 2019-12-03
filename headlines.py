@@ -58,9 +58,10 @@ try:
 
     count = int(data['totalResults'])
 
-    # Don't do more than 10 stories
-    if count > 10:
-	count = 10		
+    # Don't do more than 11 stories
+    # Main lede is often 'Ten Things to Know' followed by 10 stories
+    if count > 11:
+	count = 11		
 
     #Print heading
     today = time.strftime("%A, %B %d, %Y")
@@ -79,7 +80,8 @@ try:
     printer.feed(3)
 
 except Exception as e:
-    printer.println('--Connection Error--')  # debugging 
+    printer.println('--Error--')  # debugging 
+    printer.println(e)  # debugging 
     # print('--Error--')  
     # print(e)
     print (1) # send true value back to main

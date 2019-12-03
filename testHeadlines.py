@@ -37,11 +37,11 @@ def cleanText(text):
 def headline(idx):
     # print('Inside headline')
     # print('Index')
-    # print(idx)
+    print(idx)
     printer.println()
     # print('Getting title')
     title = data['articles'][idx]['title']
-    # print(title)
+    print(title)
     lede = cleanText(title)
     # print(lede)
     printer.print(lede)
@@ -77,10 +77,12 @@ try:
 
     # print('Printing result count')
     count = int(data['totalResults'])
-    # print(count)
-    # Don't do more than 10 stories
-    if count > 10:
-	count = 10		
+    print(count)
+
+    # Don't do more than 11 stories
+    # Main lede is often 'Ten Things to Know' followed by 10 stories
+    if count > 11:
+	count = 11		
 
     #Print heading
     today = time.strftime("%A, %B %d, %Y")
@@ -100,7 +102,8 @@ try:
     printer.feed(3)
 
 except Exception as e:
-    printer.println('--Connection Error--')  # debugging 
+    printer.println('--Error--')  # debugging 
+    printer.println(e)  # debugging 
     print('--Error--')  
     print(e)
     print (1) # send true value back to main
