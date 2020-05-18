@@ -12,26 +12,32 @@
 from __future__ import print_function
 import urllib, time, json, math
 from Adafruit_Thermal import *
+import unicodedata
 
 
 # APIKEY can be obtained by registering for a developer's trial account
 # at https://newsapi.org
 
-APIKEY = 'YOUR_API_KEY'
+APIKEY = '224cd1b6b5824016804d037808e84a45'
 
 #SOURCES for news headlines
 SOURCES = 'associated-press' 
 
+
 def cleanText(text):
     # Fix unicode apostrophes
-    fixed = text.replace(u'\u2018', '\'').replace(u'\u2019', '\'')
+    fix_quotes = text.replace(u'\u2018', '\'').replace(u'\u2019', '\'')
+    # Fix unicode dashes
+    fix_dashes = fix_quotes.replace(u'\u2013', '-').replace(u'\u2014', '-')
+
+    # Replace accented characters
+    fixed = unicodedata.normalize('NFD', fix_dashes)
 
     # Printer only supports ASCII 
     # return fixed.encode('ascii','ignore')
 
     # for now, show unicode escape sequence to id characters
     return fixed.encode('ascii','backslashreplace')
-
 
 # Write one headline to the printer
 def headline(idx):
@@ -104,9 +110,9 @@ try:
 except Exception as e:
     printer.println('--Error--')  # debugging 
     printer.println(e)  # debugging 
-    print('--Error--')  
-    print(e)
-    print (1) # send true value back to main
+    # print('--Error--')  
+    # print(e)
+    print (1) # send true value back to main for error
     exit(0)
 
 print (0) # send false  value back to main
